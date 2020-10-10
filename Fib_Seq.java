@@ -50,7 +50,7 @@ public class Fib_Seq extends Application{
         lineChart.setTitle("Gavin Swiger Fibonacci, 2020");
                           
         XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Recursive Runtime");
+        series1.setName("Iterative Runtime");
 
         for(int i = 1; i <= 42; i++) {
         	
@@ -59,7 +59,7 @@ public class Fib_Seq extends Application{
         }
 
         XYChart.Series series2 = new XYChart.Series();
-        series2.setName("Iterative Runtime");
+        series2.setName("Recursive RunTime");
         
         for(int j = 1; j <= 42; j++) {
         	
