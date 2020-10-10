@@ -1,9 +1,16 @@
 //Gavin Swiger
 //October 7th 2020
 import java.util.Scanner;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.stage.Stage;
 
 
-public class Fib_Seq {
+public class Fib_Seq extends Application{
 	
 	
 	//Recursive Fibonacci Answer
@@ -14,7 +21,7 @@ public class Fib_Seq {
     } 
 	
 	//Interative Fibonacci Answer
-	private static int fib_inter(int user_input) {
+	private static int fib_iter(int user_input) {
 		int n1 = 0;
 		int n2 = 1;
 		int n3;
@@ -31,25 +38,47 @@ public class Fib_Seq {
 		return n2;
 		
 	}
+	
+	@Override public void start(Stage stage) {
+        stage.setTitle("The Big Fib");
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+         xAxis.setLabel("Nth Number in Sequence");
+        final LineChart<String,Number> lineChart = 
+                new LineChart<String,Number>(xAxis,yAxis);
+       
+        lineChart.setTitle("Gavin Swiger Fibonacci, 2020");
+                          
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Recursive Runtime");
+
+        for(int i = 1; i <= 42; i++) {
+        	
+            series1.getData().add(new XYChart.Data(Integer.toString(i), fib_recur(i)/20000));
+        	
+        }
+
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("Iterative Runtime");
+        
+        for(int j = 1; j <= 42; j++) {
+        	
+            series2.getData().add(new XYChart.Data(Integer.toString(j), fib_iter(j)));
+        	
+        }
+
+        Scene scene  = new Scene(lineChart,800,600);       
+        lineChart.getData().addAll(series2, series1);
+       
+       
+        stage.setScene(scene);
+        stage.show();
+    }
 
 
 	public static void main(String[] args) {
 		
-		Scanner scan = new Scanner(System.in);
-		System.out.println("Enter an intiger for the Fininocci Series:");
-		int user_input = scan.nextInt();
-		
-		long startTimeRecur = System.nanoTime();
-		System.out.println("Recursive Answer: " + fib_recur(user_input));
-		long endTimeRecur = System.nanoTime();
-		long totalRunTimeRecur = endTimeRecur - startTimeRecur;
-		System.out.println("Recursive Run Time: " + totalRunTimeRecur/10000);
-		
-		long startTimeIter = System.nanoTime();
-		System.out.println("Iterative Answer: " + fib_inter(user_input));
-		long endTimeIter = System.nanoTime();
-		long totalRunIter = endTimeIter - startTimeIter;
-		System.out.println("Interative Run Time: " + totalRunIter/10000);
+		launch(args);
 		
 	}
 
